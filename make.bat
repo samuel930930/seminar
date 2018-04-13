@@ -1,0 +1,1 @@
+pandoc --from markdown --to revealjs -V theme=black --katex -s -i -o index.html src.md
