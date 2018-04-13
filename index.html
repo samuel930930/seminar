@@ -16,7 +16,7 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/theme/mozilla-devrel-dark.css" id="theme">
   <!-- Printing and PDF exports -->
   <script>
     var link = document.createElement( 'link' );
@@ -71,8 +71,8 @@ I_B = k(M) \ast I_s + N
 <li class="fragment">Blind</li>
 <li class="fragment">Non-blind</li>
 </ul>
-</section><section id="section" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <h3 id="blind">Blind</h3>
 <ul>
 <li class="fragment">Estimate both latent sharp image <span class="math inline">\(I_S\)</span> and blur kernel <span class="math inline">\(k(M)\)</span></li>
@@ -82,16 +82,16 @@ I_B = k(M) \ast I_s + N
 </ul>
 </section><section id="cnns" class="slide level2">
 <h2>CNNs</h2>
-</section><section id="section-1" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <h3 id="apply-cnn-to-estimate-the-unknown-blur-function">Apply CNN to estimate the unknown blur function</h3>
 <ul>
 <li class="fragment">Estimate blur kernel (Sun)</li>
 <li class="fragment">complex Fourier coefficients (Chakrabarti)</li>
 <li class="fragment">motion flow estimation (Gong)</li>
 </ul>
-</section><section id="section-2" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <h3 id="kernel-free-approach">Kernel-free approach</h3>
 <ul>
 <li class="fragment">Multi-scale CNN (Noorozi, Nah)</li>
@@ -104,8 +104,8 @@ I_B = k(M) \ast I_s + N
 <li class="fragment">Generator receives noise as an input and generates a sample</li>
 <li class="fragment">Discriminator receives a real and generated sample and is trying to distinguish between them.</li>
 </ul>
-</section><section id="section-3" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic3.zhimg.com/80/v2-ebb78d726f3b35c6cfa940950ef39da2_hd.jpg" /></p>
 </section><section id="minimax-objective" class="slide level2">
 <h2>Minimax objective</h2>
@@ -116,8 +116,8 @@ I_B = k(M) \ast I_s + N
 <li class="fragment"><span class="math inline">\(\mathbb{P}_r\)</span>: Data distribution</li>
 <li class="fragment"><span class="math inline">\(\mathbb{P}_g\)</span>: Model distribution</li>
 </ul>
-</section><section id="section-4" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <h3 id="advantages">Advantages</h3>
 <ul>
 <li class="fragment">Generate samples of good perceptual quality</li>
@@ -129,8 +129,8 @@ I_B = k(M) \ast I_s + N
 </section></section>
 <section><section id="problems-of-gan" class="title-slide slide level1"><h1>Problems of Gan</h1></section><section id="the-gradient-of-generator-vanish-when-the-discriminator-gets-better" class="slide level2">
 <h2>1. The gradient of generator vanish when the discriminator gets better</h2>
-</section><section id="section-5" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <ul>
 <li class="fragment"><p>The Gan loss: <span class="math display">\[
 \min_G \max_D \underset{x \backsim \mathbb{P}_r}{\mathbb{E}} [\log(D(x))] + \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [\log(1-D(x))]
@@ -141,8 +141,8 @@ I_B = k(M) \ast I_s + N
 \]</span></p></li>
 <li class="fragment"><p>Hence, it becomes <span class="math display">\[D^*(x) = \dfrac{P_r(x)}{P_r(x) + P_g(x)}\]</span></p></li>
 </ul>
-</section><section id="section-6" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>Plugging the optimal <span class="math inline">\(D^*\)</span>, the Gan loss becomes <span class="math display">\[
 \underset{x \backsim \mathbb{P}_r}{\mathbb{E}} \Big[\log \dfrac{P_r(x)}{\frac{1}{2}\big(P_r(x) + P_g(x)\big)}\Big] + \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} \Big[\log \dfrac{P_g(x)}{\frac{1}{2}\big(P_r(x) + P_g(x)\big)}\Big] 
 - 2\log2
@@ -152,28 +152,28 @@ I_B = k(M) \ast I_s + N
 <li class="fragment"><p><span class="math inline">\(JS(P_1 \Vert P_2) = \dfrac{1}{2}KL(P_1 \Vert \dfrac{P_1 + P_2}{2}) + \dfrac{1}{2}KL(P_2 \Vert \dfrac{P_1 + P_2}{2})\)</span></p></li>
 <li class="fragment"><p>Hence the loss becomes <span class="math display">\[2JS(P_r \Vert P_g) - 2\log2\]</span></p></li>
 </ul>
-</section><section id="section-7" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>The message here is that when we train the discriminator and it gets better, to minimize the generator loss becomes to minimize the JS divergence between <span class="math inline">\(P_r\)</span> and <span class="math inline">\(P_s\)</span>.</p>
 </section><section id="so-what-is-the-problem" class="slide level2">
 <h2>So what is the problem?</h2>
-</section><section id="section-8" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>There is no problem if <span class="math inline">\(P_g\)</span> and <span class="math inline">\(P_r\)</span> have intersection. However, if they have no intersection or their intersection is measure-zero, then their JS divergence is 0 or <span class="math inline">\(\log 2\)</span>.</p>
 <ul>
 <li class="fragment">If <span class="math inline">\(P_g(x)=0\)</span> and <span class="math inline">\(P_r=0\)</span>, or <span class="math inline">\(P_g(x) \ne 0\)</span> and <span class="math inline">\(P_r(x) \ne 0\)</span>, their JS divergence is 0.</li>
 <li class="fragment">If <span class="math inline">\(P_g(x)=0\)</span> and <span class="math inline">\(P_r \ne 0\)</span>, or <span class="math inline">\(P_g(x) \ne 0\)</span> and <span class="math inline">\(P_r(x) = 0\)</span>, their JS divergence is <span class="math inline">\(\log2\)</span>.</li>
 <li class="fragment"><span class="math inline">\(\log \dfrac{P_r}{\frac{1}{2}(P_r + 0)} = \log 2\)</span></li>
 </ul>
-</section><section id="section-9" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>In other words, when <span class="math inline">\(P_g\)</span> and <span class="math inline">\(P_r\)</span> have no intersection, or their intersection is measure-zero, their JS divergence is constant, hence the gradient is 0.</p>
 </section><section id="so-how-likely-it-will-happen" class="slide level2">
 <h2>So how likely it will happen?</h2>
 </section><section id="the-answer-is-very-likely." class="slide level2">
 <h2>The answer is very likely.</h2>
-</section><section id="section-10" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>Rigorously speaking, when the support of <span class="math inline">\(P_r\)</span> and <span class="math inline">\(P_g\)</span> is a low dimensional manifold in a high dimension space, the possibility of the measure of their intersection being measure-zero is 1.</p>
 </section><section id="intuitively" class="slide level2">
 <h2>Intuitively</h2>
@@ -184,11 +184,11 @@ I_B = k(M) \ast I_s + N
 </section><section id="gan" class="slide level2">
 <h2>GAN</h2>
 <p>The input of GAN is a noise vector from a low dimensional distribution (say 100), passing through a neural network, and becomes a high dimensional sample (a 64 * 64 image is 4096 dimension).</p>
-</section><section id="section-11" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic1.zhimg.com/80/v2-8715a60c1a8993953f125e03938125d7_hd.jpg" /></p>
-</section><section id="section-12" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <h3 id="the-generator-loss-is-nonsense-the-gradient-is-unstable-and-mode-collapse">2. The generator loss is nonsense, the gradient is unstable and mode collapse</h3>
 </section><section id="log-d-trick" class="slide level2">
 <h2>log D trick</h2>
@@ -197,8 +197,8 @@ I_B = k(M) \ast I_s + N
 <li class="fragment"><p>Before: <span class="math inline">\(\underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [\log(1-D(x))]\)</span></p></li>
 <li class="fragment"><p>After: <span class="math inline">\(\underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [-\log D(x)]\)</span></p></li>
 </ul>
-</section><section id="section-13" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>Recall <span class="math inline">\(D^*(x) = \dfrac{P_r(x)}{P_r(x) + P_g(x)}\)</span></p>
 <p>By plugging <span class="math inline">\(D^*\)</span>,</p>
 <p><span class="math inline">\(\begin{aligned} KL(P_g \Vert P_r) &amp;= \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [ \log \dfrac{P_g(x)}{P_r(x)}] \\ &amp;= \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [ \log \dfrac{P_g(x)/(P_r(x)+P_g(x))}{P_r(x)/(P_r(x)+P_g(x))}] \\ &amp;= \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [ \log \dfrac{1-D^*(x)}{D^*(x)}] \\ &amp;= \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [ \log (1-D^*(x))) ] - \underset{x \backsim \mathbb{P}_g}{\mathbb{E}} [ \log D^*(x) ] \end{aligned}\)</span></p>
@@ -219,19 +219,19 @@ I_B = k(M) \ast I_s + N
 <li class="fragment"><p>When <span class="math inline">\(P_g(x)\rightarrow 0\)</span> and <span class="math inline">\(P_r(x)\rightarrow 1\)</span>, <span class="math inline">\(P_g(x) \log \dfrac{P_g(x)}{P_r(x)} \rightarrow 0\)</span>, then <span class="math inline">\(KL(P_g \Vert P_r)\)</span> tends to 0.</p></li>
 <li class="fragment"><p>When <span class="math inline">\(P_g(x)\rightarrow 1\)</span> and <span class="math inline">\(P_r(x)\rightarrow 0\)</span>, <span class="math inline">\(P_g(x) \log \dfrac{P_g(x)}{P_r(x)} \rightarrow \infty\)</span>, then <span class="math inline">\(KL(P_g \Vert P_r)\)</span> tends to <span class="math inline">\(\infty\)</span>.</p></li>
 </ul>
-</section><section id="section-14" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <ul>
 <li class="fragment">In other words, the penalty is very small when the generator cannot produce some realistic samples.</li>
 <li class="fragment">However, the penalty is very large when the generator produce some unrealistic samples.</li>
 <li class="fragment">Hence, the generator inclines to produce some repetitive but “safe” samples rather than produce some diverse samples. And this is called collapse mode.</li>
 </ul>
-</section><section id="section-15" class="slide level2">
-<h2></h2>
-<p><img data-src="https://pic3.zhimg.com/v2-b85cdb4d79d7618213c320cfb3a6d4bf_r.jpg" /></p>
+</section><section class="slide level2">
+
+<p><img data-src="https://pic3.zhimg.com/v2-b85cdb4d79d7618213c320cfb3a6d4bf_r.jpg" width="800" /></p>
 </section></section>
-<section><section id="wasserstein-distance" class="title-slide slide level1"><h1>Wasserstein distance</h1></section><section id="section-16" class="slide level2">
-<h2></h2>
+<section><section id="wasserstein-distance" class="title-slide slide level1"><h1>Wasserstein distance</h1></section><section class="slide level2">
+
 <p><span class="math display">\[W(P_r, P_g) = \inf_{\gamma \sim \Pi (P_r, P_g)} \mathbb{E}_{(x, y) \sim \gamma} [\Vert x - y \Vert]\]</span></p>
 <ul>
 <li class="fragment"><p><span class="math inline">\(\Pi (P_r, P_g)\)</span> is the collection of all possible joint distribution between <span class="math inline">\(P_r\)</span> and <span class="math inline">\(P_g\)</span>. In other words, every marginal distribution in <span class="math inline">\(\Pi (P_r, P_g)\)</span> is <span class="math inline">\(P_r\)</span> and <span class="math inline">\(P_g\)</span>.</p></li>
@@ -247,18 +247,18 @@ I_B = k(M) \ast I_s + N
 </ul>
 </section><section id="so-why-wasserstein-distance" class="slide level2">
 <h2>So why Wasserstein distance?</h2>
-</section><section id="section-17" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>The supremeness of Wasserstein distance over KL divergence and JS divergence is that even the two distributions have no intersection, Wasserstein distance can still measure the similarity between two distributions.</p>
 </section></section>
-<section><section id="wasserstein-gan" class="title-slide slide level1"><h1>Wasserstein Gan</h1></section><section id="section-18" class="slide level2">
-<h2></h2>
+<section><section id="wasserstein-gan" class="title-slide slide level1"><h1>Wasserstein Gan</h1></section><section class="slide level2">
+
 <p>So could we easily apply the Wasserstein distance to define the generator loss?</p>
 <ul>
 <li class="fragment"><h2 id="unfortunately-no">Unfortunately, NO!</h2></li>
 </ul>
-</section><section id="section-19" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p>But we can transform Wasserstein distance as follows:</p>
 <p><span class="math display">\[
 W(P_r, P_g) = \frac{1}{K} \sup_{||f||_L \leq K} \mathbb{E}_{x \sim P_r} [f(x)] - \mathbb{E}_{x \sim P_g} [f(x)]
@@ -282,8 +282,8 @@ K \cdot W(P_r, P_g) \approx \max_{w: |f_w|_L \leq K} \mathbb{E}_{x \sim P_r} [f_
 <li class="fragment"><p>Also, in the original GAN model, the task of discriminator is to classify whether the sample is real or generated so a sigmoid layer is needed.</p></li>
 <li class="fragment"><p>However, in the WGAN model, we need to have a discriminator <span class="math inline">\(D\)</span> to approximate the Wasserstein distance, so it is a regression task. Hence, the sigmoid layer is removed.</p></li>
 </ul>
-</section><section id="section-20" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <h3 id="the-modification-of-wgan-made">The modification of WGAN made</h3>
 <ul>
 <li class="fragment"><p>The loss is changed to remove the log function <span class="math display">\[
@@ -298,8 +298,8 @@ K \cdot W(P_r, P_g) \approx \max_{w: |f_w|_L \leq K} \mathbb{E}_{x \sim P_r} [f_
 </section><section id="weight-clipping" class="slide level2">
 <h2>Weight clipping</h2>
 <p>Since weight clipping enforces the values of weight need to be in the range of <span class="math inline">\([-c, c]\)</span>, and the loss of discriminator, i.e. <span class="math display">\[L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)],\]</span> wants to maximize the value of real samples and minimize the value of generated samples, then the best strategies of the machine is to pick the value near to the boundary value in the range.</p>
-</section><section id="section-21" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic1.zhimg.com/80/v2-7a3aedf9fa60ce660bff9f03935d8f15_hd.jpg" /></p>
 </section><section id="weight-clipping-make-gradient-vanish-or-explode" class="slide level2">
 <h2>Weight clipping make gradient vanish or explode</h2>
@@ -307,8 +307,8 @@ K \cdot W(P_r, P_g) \approx \max_{w: |f_w|_L \leq K} \mathbb{E}_{x \sim P_r} [f_
 <li class="fragment"><p>If we set the threshold small, the gradient becomes smaller when it passes through a layer, as a result, the gradient will decay exponentially.</p></li>
 <li class="fragment"><p>If we set the threshold large, the gradient becomes larger when it passes through a layer, as a result, the gradient will grow exponentially.</p></li>
 </ul>
-</section><section id="section-22" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic1.zhimg.com/80/v2-34114a10c56518d606c1b5dd77f64585_hd.jpg" /></p>
 </section><section id="gradient-penalty" class="slide level2">
 <h2>Gradient penalty</h2>
@@ -325,20 +325,20 @@ L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)] + \lambda \m
 <ul>
 <li class="fragment">Finally, the loss becomes <span class="math display">\[L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)] + \lambda \mathbb{E}_{x \sim \mathcal{P_{\hat x}}} [ || \nabla_x D(x) ||_p - 1 ]^2\]</span></li>
 </ul>
-</section><section id="section-23" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic1.zhimg.com/80/v2-5b01ef93f60a14e7fa10dbea2b620627_hd.jpg" /></p>
-</section><section id="section-24" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic4.zhimg.com/80/v2-e0a3d86ccfa101a4d3fee1c0cef96a81_hd.jpg" width="400" /></p>
 </section></section>
-<section><section id="conditional-adversarial-networks" class="title-slide slide level1"><h1>Conditional adversarial networks</h1></section><section id="section-25" class="slide level2">
-<h2></h2>
+<section><section id="conditional-adversarial-networks" class="title-slide slide level1"><h1>Conditional adversarial networks</h1></section><section class="slide level2">
+
 <p>Gan model: <span class="math inline">\(z \mapsto y\)</span></p>
 <p>cGan model: <span class="math inline">\(z,x \mapsto y\)</span></p>
 <p>where <span class="math inline">\(z\)</span> is noise vector, <span class="math inline">\(x\)</span> is input image and <span class="math inline">\(y\)</span> is output images</p>
-</section><section id="section-26" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic1.zhimg.com/80/v2-239d9f40edd8b90f8ea4eced4471d649_hd.jpg" /></p>
 </section></section>
 <section><section id="deblurgan" class="title-slide slide level1"><h1>DeblurGan</h1></section><section id="overview" class="slide level2">
@@ -346,6 +346,8 @@ L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)] + \lambda \m
 <p>Given a blurred image <span class="math inline">\(I_b\)</span>, we hope to reconstruct a sharp image <span class="math inline">\(I_s\)</span>. The authors build a GAN model, with a CNN as a generator <span class="math inline">\(G_{\theta_{G}}\)</span> and a critic <span class="math inline">\(D_{\theta_D}\)</span>.</p>
 </section><section id="training-overview" class="slide level2">
 <h2>Training overview</h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic4.zhimg.com/80/v2-593b95a342e8ae874ffdb025a63f4dab_hd.jpg" /></p>
 </section><section id="generator-network" class="slide level2">
 <h2>Generator network</h2>
@@ -362,8 +364,8 @@ L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)] + \lambda \m
 <li class="fragment">ReLU activation</li>
 <li class="fragment">Dropout layer with probability 0.5</li>
 </ul>
-</section><section id="section-27" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic1.zhimg.com/v2-999a26b8ebd62df0518f9c5cb5896f2c_r.jpg" /></p>
 </section><section id="loss-function" class="slide level2">
 <h2>Loss Function</h2>
@@ -394,20 +396,20 @@ L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)] + \lambda \m
 </ul>
 </section><section id="why-combine-adversarial-loss-and-content-loss" class="slide level2">
 <h2>Why combine Adversarial loss and content loss?</h2>
-</section><section id="section-28" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic2.zhimg.com/v2-1e2e080d43928577683655da7904936c_r.jpg" /></p>
 </section></section>
-<section><section id="training-details" class="title-slide slide level1"><h1>Training details</h1></section><section id="section-29" class="slide level2">
-<h2></h2>
+<section><section id="training-details" class="title-slide slide level1"><h1>Training details</h1></section><section class="slide level2">
+
 <ul>
 <li class="fragment">PyTorch</li>
 <li class="fragment">Maxwell GTX Titan-X GPU</li>
 <li class="fragment">Datasets (GoPro, MS COCO)</li>
 <li class="fragment">Three models</li>
 </ul>
-</section><section id="section-30" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <ul>
 <li class="fragment"><span class="math inline">\(DeblurGAN_{Wild}\)</span> - random crops of size 256x256 from 1000 GoPro training dataset images</li>
 <li class="fragment"><span class="math inline">\(DeblurGAN_{Synth}\)</span> - 256x256 patches from MS COCO dataset blurred by proposed method</li>
@@ -415,11 +417,13 @@ L(D) = -\mathbb{E}_{x\sim P_r}[D(x)] + \mathbb{E}_{x\sim P_g}[D(x)] + \lambda \m
 </ul>
 </section><section id="results" class="slide level2">
 <h2>Results</h2>
-</section><section id="section-31" class="slide level2">
-<h2></h2>
+</section><section class="slide level2">
+
 <p><img data-src="https://pic3.zhimg.com/v2-064c4f0a8435bf3c923cd1fc65194cf9_r.jpg" /></p>
 </section><section id="readings" class="slide level2">
 <h2>Readings</h2>
+</section><section class="slide level2">
+
 <ul>
 <li class="fragment">Wasserstein GAN
 <ul>
